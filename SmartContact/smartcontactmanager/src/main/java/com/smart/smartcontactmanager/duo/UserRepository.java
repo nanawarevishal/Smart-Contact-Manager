@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+
 import com.smart.smartcontactmanager.Entities.User;
 
 public interface UserRepository extends JpaRepository<User,Integer>{
@@ -12,3 +13,4 @@ public interface UserRepository extends JpaRepository<User,Integer>{
     public User getUserByUserName(@Param("email") String email);
     
 }
+

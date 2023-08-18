@@ -3,6 +3,7 @@ package com.smart.smartcontactmanager.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -73,11 +74,31 @@ public class MyConfig{
                 auth.requestMatchers("/**").permitAll();
                 auth.anyRequest().authenticated();
             })
-            .formLogin(Customizer.withDefaults())    // this is default login form
-            // .formLogin(form -> form
-			// .loginPage("/signin"))
+            // .formLogin(Customizer.withDefaults())    // this is default login form
+            .formLogin(form -> form
+			.loginPage("/signin"))
             .httpBasic(Customizer.withDefaults())
             .build();
             
     }
+
+    // @Bean                                                      
+	// public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
+	// 	http
+	// 		.securityMatcher("/admin/**")                                   
+	// 		.authorizeHttpRequests(authorize -> authorize
+	// 			.anyRequest().hasRole("ADMIN")
+	// 		)
+    //         .securityMatcher("/user/**")
+    //         .authorizeHttpRequests(authorize -> authorize
+    //         .anyRequest().hasRole("USER"))
+    //         .securityMatcher("/**")
+    //         .authorizeHttpRequests(authorize -> authorize
+    //             .anyRequest().authenticated())
+
+	// 		.httpBasic(Customizer.withDefaults())
+    //         .formLogin(Customizer.withDefaults());
+	// 	return http.build();
+	// }
+
 }
