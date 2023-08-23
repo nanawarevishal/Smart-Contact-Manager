@@ -98,3 +98,33 @@ body{
     cursor: pointer;
 }
 
+.my_profile_picture{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* border: 1px solid black; */
+}
+
+
+/* search  css */
+
+.search-container{
+    position: relative;
+}
+
+.search-result{
+    position: absolute;
+    background: white;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid grey;
+    display: none;
+}
+
+.active{
+
+    background-color: #009688 !important;
+    color: white !important;
+}
+

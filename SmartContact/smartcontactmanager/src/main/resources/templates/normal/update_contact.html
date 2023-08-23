@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title th:text="${title}"></title>
 </head>
 <body>
     <section>
-        <!-- <h1>Add Contact</h1> -->
- 
+        <h1>This is update contact</h1>
         <div class="card mr-3 ml-3">
             <div class="card-body">
 
-                <h1 class="text-center">Add Contact</h1>
+                <h1 class="text-center">Update Contact</h1>
 
                 <div class="container-fluid mt-1">
 
@@ -30,9 +29,11 @@
                                 th:object="${contact}"
                                 enctype="multipart/form-data"
                                 method="POST"
-                                th:action="@{/user/process-contact}"
+                                th:action="@{/user/process-update}"
                                 class="mt-2"
                             >
+
+                            <input type="hidden"th:value="${contact.cId}" name="cId">
 
                             <!--  First Name -->
                             <div class="input-group mt-3">
@@ -46,7 +47,7 @@
                                 <input type="text" 
                                 id="firstname" 
                                 name="name" 
-                                
+                                th:value="${contact.name}"
                                 placeholder="Enter name here" 
                                 th:classappend="${#fields.hasErrors('name') ? 'is-invalid' :'' }"
                                 class="form-control">
@@ -66,6 +67,7 @@
 
                                 <input type="text" 
                                 id="secondName" 
+                                th:value="${contact.secondName}"
                                 name="secondName" 
                                 placeholder="Enter Nick name here" 
                                 class="form-control">
@@ -83,6 +85,7 @@
                                 <input type="number"
                                  id="phone" 
                                  name="phone"
+                                 th:value="${contact.phone}"
                                  placeholder="Enter phone number here" 
                                  th:classappend="${#fields.hasErrors('phone') ? 'is-invalid' :'' }"
                                  class="form-control">
@@ -135,10 +138,18 @@
 
                             <!--   Contact Description field -->
                             <div class="form-group mt-3">
-                                <textarea name="description" id="description" rows="10" class="form-control" placeholder="Enter your contact description"></textarea>
+                                <textarea 
+                                name="description" 
+                                id="description" rows="10"
+                                th:utext="${contact.description}"
+                                 class="form-control" 
+                                 placeholder="Enter your contact description"></textarea>
                             </div>
 
                             <!-- Contact Image Field -->
+                            <div class="container text-center">
+                                <img style="width: 250px;height: 250px;" class="img-fluid my_profile_picture" th:src="@{'/img/'+${contact.image}}" alt="" srcset="">
+                            </div>
                             <div class="custom-file">
                                 <input type="file"name="Fileimage">
                             </div>
@@ -158,18 +169,11 @@
 
             </div>
         </div>
-        
-        <script>
-            $(document).ready(()=>{
-                
-                $('.item').removeClass('active');
-                $('#addContact-link').addClass('active');
-            })
-        </script>
 
         <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
         <script>tinymce.init({selector:'textarea'});</script>
+
     </section>
 </body>
 </html>

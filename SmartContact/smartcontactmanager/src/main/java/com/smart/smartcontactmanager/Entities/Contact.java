@@ -3,6 +3,8 @@ package com.smart.smartcontactmanager.Entities;
 
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +34,7 @@ public class Contact {
     @Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "Invalid Email or Email Already taken")
     private String email;
 
-    @NotBlank(message = "mobileNumber is required")
+    @NotBlank(message = "mobileNumber is required and It should be 10 digits only")
     @Size(min = 10, max = 10)
     private String phone;
     
@@ -42,6 +44,7 @@ public class Contact {
     private String description;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     public int getcId() {

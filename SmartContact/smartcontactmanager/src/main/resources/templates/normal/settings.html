@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!-- <html lang="en"th:replace="normal/base::layout(~{::section})"> -->
+<html lang="en"th:replace="~{normal/base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}"></title>
+</head>
+<body>
+    <section>
+        <form action="" method="post">
+        <div class="container">
+            <div class="card">
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        
+                        <div class="container">
+                            <img th:src="@{'/img/'+${user.imageUrl}}" alt="" srcset="">
+                        </div>
+                    
+                    </div>
+                    <div class="col-md-4">
+                        
+                        <h2>Use</h2>
+                    </div>
+    
+                    <div class="col-md-4">
+                       
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+    </form>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+
+                        <!-- Alert Message -->
+                        <div th:if="${message}" th:classappend="${message.type}" class="alert" role="alert">
+                            <strong th:text="${message.content}">
+                            </strong>
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="my-3">Change Password</h3>
+
+                            <form th:action="@{/user/change-password}" method="post">
+
+                                <!-- Old Password -->
+
+                                <div class="form-group">
+
+                                    <input type="password"
+                                    name="oldPassword"
+                                    class="form-control" 
+                                    placeholder="Enter the old password"
+                                    >
+                                </div>
+
+
+                                <!-- New Password field -->
+
+                                <div class="form-group">
+                                    <input type="password"
+                                    name="newPassword"
+                                    class="form-control" 
+                                    placeholder="Enter the new password"
+                                    >
+                                </div>
+
+                                <div class="container text-center">
+                                    <button type="submit" class="btn btn-success">Change</button>
+                                    <button type="reset" class="btn btn-warning">Reset</button>
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(()=>{
+                
+                $('.item').removeClass('active');
+                $('#setting-link').addClass('active');
+            })
+        </script>
+
+    </section>
+</body>
+</html>

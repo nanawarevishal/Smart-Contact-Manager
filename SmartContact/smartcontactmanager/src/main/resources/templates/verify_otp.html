@@ -1,0 +1,91 @@
+
+
+<!DOCTYPE html>
+<html lang="en"th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}"></title>
+</head>
+<body>
+    <section>
+        <div id="login">
+            <h3 class="text-center text-white pt-5">Login form</h3>
+            <div class="container">
+                <div id="login-row" class="row justify-content-center align-items-center">
+                    <div id="login-column" class="col-md-6">
+                        <div class="login-box col-md-12" style="height: 250px;">
+                            <!-- Email Form -->
+                            <h3 class="text-center m-3">Verify OTP</h3>
+
+                               <!-- Alert Message -->
+                                <div th:if="${message}" th:classappend="${message.type}" class="alert" role="alert">
+                                    <strong th:text="${message.content}">
+                                    </strong>
+                                </div>
+                                
+                            <div id="timer">00:00</div>
+                            <form th:action="@{/verify-otp}" method="post">
+                                <div class="form-group">
+                                    <input required type="text" name="OTP" placeholder="Enter OTP here" class="form-control">
+                                </div>
+
+                                <!-- <input type="text" id="otpInput" placeholder="Enter OTP"> -->
+                
+                                <div class="container text-center">
+                                    <button class="btn btn-success">Verify OTP</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const countdownTime = 20; // 1 minutes
+            let timeRemaining = countdownTime;
+    
+            function updateTimerDisplay() {
+                const minutes = Math.floor(timeRemaining / 60);
+                const seconds = timeRemaining % 60;
+                const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                document.getElementById('timer').textContent = formattedTime;
+            }
+    
+            function startTimer() {
+                updateTimerDisplay();
+                const timerInterval = setInterval(() => {
+                    timeRemaining--;
+                    updateTimerDisplay();
+                    if (timeRemaining <= 0) {
+                        clearInterval(timerInterval);
+                        document.getElementById('timer').textContent = 'Time Expired';
+                        redirectToPage();
+                    }
+                }, 1000);
+            }
+    
+            function redirectToPage() {
+                // Perform the AJAX call to redirect
+                const xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // Redirect after successful AJAX call
+                            window.location.href = '[[ @{/forget} ]]';  // endpoint of the redirect page
+                        } else {
+                            console.error('Failed to redirect:', xhr.statusText);
+                        }
+                    }
+                };
+                xhr.open('GET', 'http://127.0.0.1:8080/forget', true);  // actual Endpoint 
+                xhr.send();
+            }
+    
+            window.onload = startTimer;
+        </script>
+    </section>
+   
+</body>
+</html>
