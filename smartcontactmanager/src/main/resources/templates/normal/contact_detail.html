@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"th:replace="normal/base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}"></title>
+</head>
+<body>
+    <section>
+        <div class="card mr-3 ml-3">
+            <div class="card-body"th:if="${contact}">
+                <div class="container text-center">
+                    <div class="container">
+                        <div class="row d-flex no-gutters">
+                            <div class="col-md-6 col-lg-5 d-flex">
+                                <div class="img-about img d-flex align-items-stretch">
+                                    <div class="overlay"></div>
+                                    <div class="img d-flex align-self-stretch align-items-center"> 
+                                        <img style="width: 470px; height:550px;"  th:src="@{'/img/'+${contact.image}}" alt="" srcset="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-7 pl-md-4 pl-lg-5 py-5">
+                                <div class="py-md-5">
+                                    <div class="row justify-content-start pb-3">
+                                        <div class="col-md-12 heading-section ftco-animate fadeInUp ftco-animated">
+                                            <span class="subheading font-weight-bold" th:text="${contact.name +' Info'}"></span>
+                                            <h2 class="mb-4" style="font-size: 34px; text-transform: capitalize;"></h2>
+                                            
+                                            <ul class="about-info mt-4 px-md-0 px-2">
+                                                <li class="d-flex"><span class="font-weight-bold">Name </span><span th:text="${': '+ contact.name}"></span></li>
+                                                <li class="d-flex"><span class="font-weight-bold">Nickname</span><span th:text="${': '+ contact.secondName}"></span></li> 
+                                                <li class="d-flex"><span class="font-weight-bold">Email</span> <span th:text="${': '+contact.email}"></span></li>
+                                                <li class="d-flex"><span class="font-weight-bold">Work</span> <span th:text="${': '+ contact.work}"></span></li>
+                                                <li class="d-flex"><span class="font-weight-bold">Phone</span> <span th:text="${': +91-'+contact.phone}"></span></li>
+                                            </ul>
+
+                                            <div class="container">
+                                                <span class="subheading font-weight-bold">Description</span>
+                                                <p class="text-justify"th:utext="${contact.description}"></p>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-12">
+                                            <div class="my-interest d-lg-flex w-100">
+                                                <div class="interest-wrap d-flex align-items-center">
+                                                    <div class="icon d-flex align-items-center justify-content-center">
+                                                        <span class="flaticon-listening"></span>
+                                                    </div>
+                                                    <div class="text">Music</div>
+                                                </div>
+                                                <div class="interest-wrap d-flex align-items-center">
+                                                    <div class="icon d-flex align-items-center justify-content-center">
+                                                        <span class="flaticon-suitcases"></span>
+                                                    </div>
+                                                    <div class="text">Travel</div>
+                                                </div>
+                                                <div class="interest-wrap d-flex align-items-center">
+                                                    <div class="icon d-flex align-items-center justify-content-center">
+                                                        <span class="flaticon-video-player"></span>
+                                                    </div>
+                                                    <div class="text">Movie</div>
+                                                </div>
+                                                <div class="interest-wrap d-flex align-items-center">
+                                                    <div class="icon d-flex align-items-center justify-content-center">
+                                                        <span class="flaticon-football"></span>
+                                                    </div>
+                                                    <div class="text">Sports</div>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body" th:unless="${contact}">
+                <h1>You donn't have permission to see this Contact.......</h1>
+            </div>
+
+        </div>
+    </section>
+</body>
+</html>

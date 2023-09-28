@@ -114,8 +114,10 @@ const paymentStart=()=>{
                             console.log(response.razorpay_payment_id)
                             console.log(response.razorpay_order_id)
                             console.log(response.razorpay_signature)
-                            console.log("")
-                            swal("Good job!", "payment successful ..!", "success");
+                            // console.log("")
+
+                            updatePaymentOnServer(response.razorpay_payment_id,response.razorpay_order_id,"Paid")
+                          
                         },
 
                         "prefill": { 
@@ -143,8 +145,8 @@ const paymentStart=()=>{
                     console.log(response.error.reason);
                     console.log(response.error.metadata.order_id);
                     console.log(response.error.metadata.payment_id);
-                    alert("Ohhh..! payment failed..!")
-                    swal("Something went wrong!", "Oops Payment failed ..!", "error");
+                    // alert("Ohhh..! payment failed..!")
+                 
 
                     });
 
@@ -157,10 +159,36 @@ const paymentStart=()=>{
 
                 // invoke when error
                 console.log(error)
-                alert("Something went wrong...!")
+                swal("Something went wrong!", "Oops Payment failed ..!", "error");
             }
 
         }
     )
+}
+
+
+//
+
+function updatePaymentOnServer(payment_id,order_id,status){
+    $.ajax({
+        url : "/user/update-order",
+        data :JSON.stringify({
+            payment_id : payment_id,
+            order_id :order_id,
+            status:status,
+        }),
+
+        contentType : "application/json",
+        type :"POST",
+        dataType :"json",
+
+        success: function(response){
+            swal("Good job!", "payment successful ..!", "success");
+        },
+
+        error: function(error){
+            swal("Failed...!", "Your payment is successful, but we did not get on server, we will contact you ASAP", "error");
+        }
+    });
 }
 

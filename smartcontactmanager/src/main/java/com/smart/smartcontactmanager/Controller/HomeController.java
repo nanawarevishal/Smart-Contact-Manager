@@ -2,6 +2,7 @@ package com.smart.smartcontactmanager.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,18 +10,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.smart.smartcontactmanager.Entities.User;
 import com.smart.smartcontactmanager.Helper.Message;
 import com.smart.smartcontactmanager.duo.UserRepository;
 
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 
 @Controller
 public class HomeController {
 
-      @Autowired
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
+    @Autowired
     private UserRepository userRepository;
 
     @RequestMapping("/")
@@ -33,7 +38,7 @@ public class HomeController {
         return "about";
     }
 
-    @RequestMapping(value = "signup")
+    @RequestMapping(value = "/signup")
     public String signup(Model model){
 
         model.addAttribute("title","Register-Smart Contact Manager");
@@ -62,6 +67,9 @@ public class HomeController {
             
             user.setRole("ROLE_USER");
             user.setEnabled(true);
+            user.setImageUrl("default.png");
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
             User result = this.userRepository.save(user);
 
             System.out.println("Agreement: "+agreement);
@@ -84,4 +92,10 @@ public class HomeController {
         
     }
 
+
+    @RequestMapping(value = "/signin")
+    public String customLogin(Model model){
+        model.addAttribute("title","Login Page");
+        return "login";
+    }
 }

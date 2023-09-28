@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- <html lang="en"th:replace="normal/base::layout(~{::section})"> -->
+<html lang="en"th:replace="~{normal/base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}"></title>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-center">
+                        <img th:src="@{'/img/user.png'}" alt="" style="height: 250px;width:250px">
+                    </div>
+                   <div class="container text-center m-3">
+                        <h5>Start adding your contact</h5>
+                        <a th:href="@{/user/add-contact}" class="btn btn-success">ADD Contact</a>
+                   </div>
+                </div>
+
+                <hr>
+
+                <div class="container">
+
+                    <h3 class="my-3">Donate US</h3>
+                    <input id="payment_field" type="number" class="form-control my-3" placeholder="Enter amount here">
+                    <div class="container text-center my-2">
+                        <button onclick="paymentStart()" class="btn btn-success">PAY</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(()=>{
+                
+                $('.item').removeClass('active');
+                $('#home-link').addClass('active');
+            })
+        </script>
+
+    </section>
+</body>
+</html>
